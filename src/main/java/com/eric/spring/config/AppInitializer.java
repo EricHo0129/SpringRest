@@ -17,7 +17,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 	
 	@Override
 	protected Class<?>[] getServletConfigClasses() {
-		return null; //這邊以後可以根據不同的路徑設定
+		return null;
 	}
 	
 	@Override

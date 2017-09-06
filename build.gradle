@@ -1,6 +1,7 @@
 apply plugin: 'java' //Java套件會被相依進來
 apply plugin: 'maven'
-apply plugin: 'eclipse' //elipse的web專案套件
+apply plugin: 'eclipse-wtp' //elipse的web專案套件
+apply plugin: 'war'
 
 version = '1.0.0'
 group = 'com.e104.plus'
@@ -8,6 +9,7 @@ def groupId = 'com.e104.plus'
 def artifactId = rootProject.name
 
 sourceCompatibility = 1.7
+targetCompatibility = 1.7
 compileJava.options.encoding = 'UTF-8' //原始碼編譯時的編碼
 javadoc.options.encoding = 'UTF-8'
 
@@ -45,22 +47,24 @@ dependencies {
 	compile group: 'commons-lang', name:'commons-lang', version:'2.5'
 	compile group: 'commons-beanutils', name:'commons-beanutils', version:'1.8.0'
 	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jacksonVersion
-	provided group: 'javax.servlet', name: 'javax.servlet-api', version: '3.0.1'
+	providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.0.1'
 }
 
-
-//原始碼設定
 sourceSets {
     main {
         java {
             srcDirs 'src/main/java'
         }
     }
-    test {
-    	java {
-    		srcDir 'src/test/java'
-    	}
-    }
+}
+
+
+war {
+    classpath fileTree(dir: 'src/main/java', include: '*').files
+    //webInf { from 'src/additionalWebInf' } // adds a file-set to the WEB-INF dir.
+    //classpath fileTree('additionalLibs') // adds a file-set to the WEB-INF/lib dir.
+    //classpath configurations.moreLibs // adds a configuration to the WEB-INF/lib dir.
+    //webXml = file('src/someWeb.xml') // copies a file to WEB-INF/web.xml
 }
 
 
@@ -77,3 +81,16 @@ test {
     }
 }
 */
+
+eclipse {
+
+  wtp {
+    component {
+
+      //define context path, default to project folder name
+      contextPath = 'SpringRest'
+
+    }
+
+  }
+}

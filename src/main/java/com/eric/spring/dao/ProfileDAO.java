@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.springframework.stereotype.Component;
 
 import com.eric.spring.model.ProfileModel;
 
@@ -12,6 +13,7 @@ import com.eric.spring.model.ProfileModel;
  * @author yung.ho
  *
  */
+@Component
 public class ProfileDAO {
 
 	private static List<ProfileModel> profileList = new ArrayList<ProfileModel>();
